@@ -7,11 +7,15 @@ const { connection } = require("./config/db");
 const { userRouter } = require("./routes/user.routes");
 // auth
 const { auth } = require("./middleware/auth.middleware");
+// Inventory
+const {inventoryRouter} = require("./routes/inventory.routes")
 
 app.use(cors());
 app.use(express.json());
 // user
 app.use("/users", userRouter);
+//  Inventory
+app.use("/inventory",inventoryRouter)
 
 app.listen(8080, async () => {
     try {
