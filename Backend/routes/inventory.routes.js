@@ -15,14 +15,29 @@ inventoryRouter.get("/:id",async(req,res)=>{
 
 // GET
 inventoryRouter.get("/",async(req,res)=>{
-    let query={};
-    const {price}=req.query;
+    
+    const {filter,order}=req.query;
     try{
-        let post;
-        if (price) {
-            post = await InventoryModel.find({ price })
-        } 
-        res.status(200).json(post)
+        if(filter === "price"){
+            let deals;
+            if (order == "desc") {
+              deals = await InventoryModel.find({}).populate("oemId").sort({ price: -1 });
+              console.log(deals);
+            } else if (order == "asc"){
+              deals = await InventoryModel.find({}).populate("oemId").sort({ price: 1 });
+            }
+            res.status(200).send({ deals });
+          }
+          else if(filter === "mileage"){
+            let deals;
+            if (order == "desc"){
+                deals = await InventoryModel.find({}).populate("oemId").sort({ price: -1 });
+                console.log(deals); 
+            }else if (order == "asc"){
+                deals = await InventoryModel.find({}).populate("oemId").sort({ price: 1 });
+              }
+              res.status(200).send({ deals });
+          }
     }
     catch(err){
         res.send({"msg":err.message});
