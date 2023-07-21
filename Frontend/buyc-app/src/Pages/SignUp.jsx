@@ -1,81 +1,89 @@
-import React, {useState} from 'react'
-import { Box, Button ,useDisclosure, Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,Input,FormControl,FormLabel} from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  Input,
+  useToast,
+} from "@chakra-ui/react";
+import React, { useState } from "react";
 import axios from "axios";
 
-    const initialState = {
-      name : "",
-      email : "",
-      password : "",
-      profile :""
-  }
+const Register = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [profile, setProfile] = useState("");
+  const [password, setPassword] = useState("");
+  const toast = useToast();
 
-const SignUp = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const initialRef = React.useRef(null)
-  const finalRef = React.useRef(null)
+  let handleSubmit = async () => {
+    let payload = {
+      name,
+      email,
+      profile,
+      password,
+    };
+    const sendData = await axios.post(
+      `https://relieved-teal-parrot.cyclic.app/users/register`,
+      payload
+    );
+    console.log(sendData)
+    if (sendData.status === 200) {
+      toast({
+        title: "Account created.",
+        description: `Hello! ${name}. We've created your account Successfully.`,
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+  };
 
-  const [register , setRegister] = useState(initialState)
-  
- const handleSubmit = (e) =>{
-  e.preventDefault();
-  axios.post(`https://relieved-teal-parrot.cyclic.app/register`,{
-    ...register,
-  }).then((res)=>console.log(res))
-    // window.location.href="/login"
- }
-console.log(register)
   return (
     <Box>
-       <Button onClick={onOpen}>Sign Up</Button>
-
-       <Modal
-        initialFocusRef={initialRef}
-        finalFocusRef={finalRef}
-        isOpen={isOpen}
-        onClose={onClose}
-      >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Sign Up</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pb={6}>
-            <FormControl>
-              <FormLabel>First name</FormLabel>
-              <Input ref={initialRef} type="text" placeholder='First name' name="name" value={register.name} onChange={(e)=>setRegister({...register, name:e.target.value})} required />
-            </FormControl>
-
-            <FormControl mt={4}>
-              <FormLabel>Email</FormLabel>
-              <Input required placeholder='Email' type="text" name="email" value={register.email} onChange={(e)=>setRegister({...register, email:e.target.value})} />
-            </FormControl>
-
-            <FormControl mt={4}>
-              <FormLabel>Password</FormLabel>
-              <Input required placeholder='Password' type="password" name="password" value={register.password} onChange={(e)=>setRegister({...register, password:e.target.value})} />
-            </FormControl>
-
-            <FormControl mt={4}>
-              <FormLabel>Profile</FormLabel>
-              <Input required placeholder='Profile' type="text" name="profile" value={register.profile} onChange={(e)=>setRegister({...register, profile:e.target.value})} />
-            </FormControl>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={handleSubmit}>
-              Save
-            </Button>
-            <Button onClick={onClose}>Cancel</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <Center>
+        <Flex
+          direction={"column"}
+          gap={6}
+          border={"2px solid black"}
+          p={6}
+          borderRadius={"2xl"}
+        >
+          <Input
+            type={"text"}
+            placeholder={"Your Name Here"}
+            color={"green"}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <Input
+            type={"email"}
+            placeholder={"Your Email Here"}
+            color={"green"}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            type={"text"}
+            placeholder={"Your profile Here"}
+            color={"green"}
+            value={profile}
+            onChange={(e) => setProfile(e.target.value)}
+          />
+          <Input
+            type={"password"}
+            placeholder={"Your Password Here"}
+            color={"green"}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button colorScheme={"green"} onClick={handleSubmit}>
+            Register
+          </Button>
+        </Flex>
+      </Center>
     </Box>
-  )
-}
+  );
+};
 
-export default SignUp
+export default Register;
