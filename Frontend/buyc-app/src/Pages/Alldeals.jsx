@@ -14,12 +14,12 @@ const Alldeals = () => {
 
   return (
     <div>
-      {/* {data.length >0 && data.map((el)=>{
+      {data.length >0 && data.map((el)=>{
         return ( 
            <Table key={el.id} {...el}/>
          )
-      })} */}
-      <Table/>
+      })}
+      
     </div>
   )
 }
