@@ -4,7 +4,7 @@ const Table = ({kms,major_scratches,original_paint,number_of_accidents_reported,
 ,image,title,description, price}) => {
   return (
     <div>
-      <table style={{width:" 100%"}}>
+      <table style={{width:"100%"}}>
         <thead>
           <tr style={{border: "1px solid black",padding: "8px"}}>
             <th>kms</th>
@@ -17,6 +17,8 @@ const Table = ({kms,major_scratches,original_paint,number_of_accidents_reported,
             <th>title</th>
             <th>description</th>
             <th> price</th>
+            <th>Edit</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -31,6 +33,8 @@ const Table = ({kms,major_scratches,original_paint,number_of_accidents_reported,
             <td>{title}</td>
             <td>{description}</td>
             <td>{ price}</td>
+            <td>Edit</td>
+            <td>Delete</td>
         </tr>
         </tbody>
       </table>  
