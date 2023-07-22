@@ -11,10 +11,10 @@ const MainRoutes = () => {
   return (
     <div>
             <Routes>
-                <Route path="/sign" element={<SignUp />} />
+                <Route path="/" element={<SignUp />} />
                 <Route path="/login" element={<Login/>} />
                 <Route path="/oems" element={<Oems/>} />
-                <Route path="/" element={<Alldeals/>} />
+                <Route path="/all" element={<Alldeals/>} />
                 <Route path="/add" element={
                   // <PrivateRoute>
                      <AddDeals/>
