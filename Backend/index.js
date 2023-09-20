@@ -17,7 +17,7 @@ app.use(express.json());
 // user
 app.use("/users", userRouter);
 // auth
-// app.use(auth)
+app.use(auth)
 //  Inventory
 app.use("/inventory",inventoryRouter)
 // oems

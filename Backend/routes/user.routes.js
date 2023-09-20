@@ -9,7 +9,7 @@ userRouter.post('/register', async (req, res) => {
     const { name,email,password,profile } = req.body;
   
     try {
-      const user = await UserModel.findOne({ email });
+      const user = await UserModel.findOne({ email }).maxTimeMS(30000); ;
       
       if (user) {
         res.send('User already exists.');
@@ -33,7 +33,7 @@ userRouter.post('/register', async (req, res) => {
 userRouter.post("/login",async(req,res)=>{
    const{email,password}=req.body;
    try{
-       const user= await UserModel.findOne({email});
+       const user= await UserModel.findOne({email}).maxTimeMS(30000); ;
        if(user){
            bcrypt.compare(password,user.password,(err, result)=> {
                 if(result){
